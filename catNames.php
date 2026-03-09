@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
 <head>
     <style>
         .cat-info {
@@ -27,6 +28,7 @@
         }
     </style>
 </head>
+
 <body>
     <script>
         let catNames = [];
@@ -83,4 +85,5 @@
         window.getRandomAge = getRandomAge;
     </script>
 </body>
+
 </html>

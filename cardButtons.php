@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         .card-buttons {
@@ -48,6 +49,7 @@
         }
     </style>
 </head>
+
 <body>
     <script>
         // floating button bar separate from the cards
@@ -131,4 +133,5 @@
         window.triggerDislikeButton = triggerDislikeButton;
     </script>
 </body>
+
 </html>

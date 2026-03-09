@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         /* yes/no overlay and feedback styles */
@@ -57,6 +58,7 @@
         .card.dragging-left .dislike-overlay { opacity: 1; }
     </style>
 </head>
+
 <body>
     <script>
         // append overlays to a card

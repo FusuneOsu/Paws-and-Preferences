@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -187,6 +188,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="title">Paws & Preferences: Find Your Favourite Kitty</div>
@@ -271,4 +273,5 @@
         startSlideShow();
     </script>
 </body>
+
 </html>

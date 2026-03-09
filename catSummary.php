@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <style>
         .summary-overlay {
@@ -166,6 +167,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="summaryOverlay" class="summary-overlay">
         <div class="summary-container">
@@ -245,4 +247,5 @@
         window.goHome = goHome;
     </script>
 </body>
+
 </html>
