@@ -16,34 +16,36 @@
         body {
             width: 100vw;
             height: 100vh;
+            height: 100dvh;
             background: radial-gradient(ellipse at 30% 20%, #FFB3A0 0%, #FF9966 15%, #FF6B9D 30%, #D964A3 45%, #9D4EDD 55%, #7B2CBF 70%, #6A4C93 85%, #4A3F8F 100%);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 16px;
             font-family: Arial, sans-serif;
             overflow: hidden;
+            padding: 70px 16px 16px;
         }
 
         .container {
             position: relative;
-            width: 400px;
-            height: 500px;
+            width: min(90vw, 400px);
+            height: min(68vh, 500px);
+            height: min(68dvh, 500px);
             perspective: 1000px;
+            flex-shrink: 0;
         }
 
         .instruction-text {
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
             color: white;
-            font-size: 36px;
+            font-size: clamp(13px, 3.8vw, 28px);
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             text-align: center;
-            z-index: 10;
             pointer-events: none;
             white-space: nowrap;
+            max-width: min(90vw, 400px);
         }
 
         .card-stack {
@@ -116,8 +118,8 @@
 
     <button class="back-home-btn" onclick="window.location.href='index.php'">← Home</button>
 
+    <p class="instruction-text">swipe left for nope, swipe right for like</p>
     <div class="container">
-        <div class="instruction-text">swipe left for nope, swipe right for like</div>
         <div class="card-stack" id="cardStack"></div>
         <div class="empty-message" id="emptyMessage">
             <!-- <p>No more cats! 🐱</p>

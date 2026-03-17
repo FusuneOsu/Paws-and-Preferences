@@ -6,16 +6,8 @@
         /* yes/no overlay and feedback styles */
         .like-overlay, .dislike-overlay {
             position: absolute;
-            font-size: 96px;
+            font-size: clamp(56px, 20vw, 96px);
             font-weight: 900;
-            text-shadow: 
-                -3px -3px 0 rgba(0,0,0,0.8),
-                3px -3px 0 rgba(0,0,0,0.8),
-                -3px 3px 0 rgba(0,0,0,0.8),
-                3px 3px 0 rgba(0,0,0,0.8),
-                0 0 20px rgba(0,0,0,0.6),
-                0 0 30px rgba(0,0,0,0.4);
-            -webkit-text-stroke: 3px rgba(0,0,0,0.8);
             z-index: 20;
             pointer-events: none;
             opacity: 0;
@@ -35,7 +27,6 @@
                 3px 3px 0 rgba(0,0,0,0.8),
                 0 0 20px rgba(76, 175, 80, 0.8),
                 0 0 30px rgba(76, 175, 80, 0.6);
-            -webkit-text-stroke: 3px rgba(0,0,0,0.8);
         }
 
         .dislike-overlay {
@@ -50,7 +41,6 @@
                 3px 3px 0 rgba(0,0,0,0.8),
                 0 0 20px rgba(244, 67, 54, 0.8),
                 0 0 30px rgba(244, 67, 54, 0.6);
-            -webkit-text-stroke: 3px rgba(0,0,0,0.8);
         }
 
 

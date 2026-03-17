@@ -28,14 +28,14 @@
             border-radius: 30px;
             padding: 40px;
             max-width: 1200px;
-            width: 50%;
+            width: min(90vw, 600px);
             color: white;
             text-align: center;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         .summary-title {
-            font-size: 42px;
+            font-size: clamp(26px, 7vw, 42px);
             font-weight: bold;
             margin-bottom: 10px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);

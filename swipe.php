@@ -15,6 +15,8 @@
             cursor: grab;
             user-select: none;
             transition: transform 0.3s ease-out, box-shadow 0.1s ease-out;
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         .card:active { cursor: grabbing; }
@@ -69,6 +71,9 @@
 
         function addSwipeListeners(card) {
             let startX=0, startY=0, isDragging=false;
+            const ctrl = new AbortController();
+            const sig = ctrl.signal;
+
             const handleStart=(e)=>{
                 e.preventDefault();
                 startX = e.type.includes('mouse')?e.clientX:e.touches[0].clientX;
@@ -77,6 +82,7 @@
             };
             const handleMove=(e)=>{
                 if(!isDragging) return;
+                if(e.cancelable) e.preventDefault();
                 const currentX = e.type.includes('mouse')?e.clientX:e.touches[0].clientX;
                 const currentY = e.type.includes('mouse')?e.clientY:e.touches[0].clientY;
                 const diffX=currentX-startX, diffY=currentY-startY;
@@ -94,6 +100,7 @@
                 const angle=(diffX/100)*15;
                 card.style.transition=''; card.classList.remove('dragging-right','dragging-left');
                 if(diffX>100){
+                    ctrl.abort();
                     card.classList.add('liked');
                     card.style.setProperty('--start-x',diffX+'px');
                     card.style.setProperty('--start-y',diffY+'px');
@@ -111,6 +118,7 @@
                     });
                     setTimeout(()=>{currentIndex++; renderCards();},600);
                 } else if(diffX<-100){
+                    ctrl.abort();
                     card.classList.add('disliked');
                     card.style.setProperty('--start-x',diffX+'px');
                     card.style.setProperty('--start-y',diffY+'px');
@@ -131,12 +139,12 @@
                     card.style.transform='translateX(0) translateY(0) rotate(0deg)';
                 }
             };
-            card.addEventListener('mousedown',handleStart);
-            document.addEventListener('mousemove',handleMove);
-            document.addEventListener('mouseup',handleEnd);
-            card.addEventListener('touchstart',handleStart);
-            document.addEventListener('touchmove',handleMove);
-            document.addEventListener('touchend',handleEnd);
+            card.addEventListener('mousedown',handleStart,{signal:sig});
+            document.addEventListener('mousemove',handleMove,{signal:sig});
+            document.addEventListener('mouseup',handleEnd,{signal:sig});
+            card.addEventListener('touchstart',handleStart,{passive:false,signal:sig});
+            document.addEventListener('touchmove',handleMove,{passive:false,signal:sig});
+            document.addEventListener('touchend',handleEnd,{signal:sig});
         }
 
         function rewindLastSwipe(){
@@ -180,19 +188,21 @@
                 if(typeof addYesNoOverlays==='function') addYesNoOverlays(card);
                 if(typeof addCatInfo==='function') addCatInfo(card, currentIndex+index);
                 
-                // Capture the actual displayed image as a data URL for the summary
+                // Defer canvas capture to avoid blocking the render thread
                 const catIdx = currentIndex + index;
                 if (catIdx < cats.length && !cats[catIdx].dataUrl) {
-                    try {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = img.naturalWidth;
-                        canvas.height = img.naturalHeight;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0);
-                        cats[catIdx].dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-                    } catch(e) {
-                        console.log('Canvas capture failed:', e);
-                    }
+                    setTimeout(() => {
+                        try {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.naturalWidth;
+                            canvas.height = img.naturalHeight;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0);
+                            cats[catIdx].dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                        } catch(e) {
+                            console.log('Canvas capture failed:', e);
+                        }
+                    }, 0);
                 }
             };
             img.onerror=()=>{currentIndex++; renderCards();};
