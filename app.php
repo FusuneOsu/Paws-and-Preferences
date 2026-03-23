@@ -39,13 +39,21 @@
 
         .instruction-text {
             color: white;
-            font-size: clamp(13px, 3.8vw, 28px);
+            font-size: clamp(15px, 4.2vw, 34px);
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             text-align: center;
             pointer-events: none;
             white-space: nowrap;
-            max-width: min(90vw, 400px);
+            max-width: 92vw;
+        }
+
+        @media (max-width: 768px) {
+            .instruction-text {
+                font-size: clamp(27.5px, 8.5vw, 37.5px);
+                white-space: normal;
+                line-height: 1.2;
+            }
         }
 
         .card-stack {
@@ -118,7 +126,7 @@
 
     <button class="back-home-btn" onclick="window.location.href='index.php'">← Home</button>
 
-    <p class="instruction-text">swipe left for nope, swipe right for like</p>
+    <p class="instruction-text">Swipe left for nope, swipe right for like</p>
     <div class="container">
         <div class="card-stack" id="cardStack"></div>
         <div class="empty-message" id="emptyMessage">
